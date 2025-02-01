@@ -1,0 +1,70 @@
+@font-face {
+    font-family: "Aston Script Bold";
+    src: url("../../Components/fonts/Aston\ Script.ttf");
+}
+
+@font-face {
+    font-family: "jsMath-cmr10";
+    src: url("../../Components/fonts/jsMath-cmr10\ 500.ttf");
+}
+
+@font-face {
+    font-family: "Dancing Script";
+    src: url("../../Components/fonts/DancingScript-VariableFont_wght.ttf");
+}
+
+.main {
+    background-image: url('../../Components/img/image.png');
+    background-size: cover;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.welcome__txt {
+    text-align: right;
+    padding-right: 150px;
+    padding-top: 260px;
+}
+
+.welcome__txt p {
+    font-weight: 900;
+    font-size: 66px;
+    text-transform: uppercase;
+    color: #1a1919;
+    font-family: "Dancing Script", sans-serif;
+}
+
+.last_line::first-letter{
+    font-family: "Aston Script Bold", sans-serif;
+    font-weight: 700;
+    line-height: 125%;
+}
+
+.welcome__txt button {
+	box-shadow: 3px 3px 5px 0px #3c09a1;
+	background:linear-gradient(to bottom, #a020c7 5%, #7a1ded 100%);
+	background-color:#a020c7;
+	border-radius:28px;
+	border:1px solid #66165e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:8px 31px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #0e240b;
+}
+
+.welcome__txt button:hover {
+    background:linear-gradient(to bottom, #7a1ded 5%, #a020c7 100%);
+	background-color:#7a1ded;
+}
+
+.welcome__txt button:active {
+    position:relative;
+	top:1px;
+}
+
+

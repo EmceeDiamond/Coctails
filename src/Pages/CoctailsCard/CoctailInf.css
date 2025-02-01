@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+.coctail__info img {
+    width: 400px;
+}
+
+.heading {
+    font-size: 24px;
+    font-family: "Macondo", sans-serif;
+}
+
+.name {
+    text-align: center;
+    font-size: 28px;
+    font-family: "Macondo", sans-serif;
+}
+
+.instruction {
+    width: 400px;
+    font-size: 20px;
+    font-family: "Bitter", sans-serif;
+    padding-left: 10px
+}
+
+.ingredient {
+    font-size: 20px;
+    font-family: "Bitter", sans-serif;
+}
+
+.constituent {
+    display: flex;
+}
+
+.measure {
+    font-size: 20px;
+    font-family: "Bitter", sans-serif;
+    list-style: none;
+    padding-left: 25px;
+}
