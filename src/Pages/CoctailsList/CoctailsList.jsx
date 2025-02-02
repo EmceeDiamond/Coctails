@@ -18,6 +18,7 @@ export default function CocktailsList() {
     const [filter, setFilter] = useState([]);
     const [ingredient, setIngredient] = useState([]);
     const [ingredientCheckbox, setIngredientCheckbox] = useState([]);
+    const [flag, setFlag] = useState(false);
 
     const loadingIngredients = () => {
         fetchIngredients().then((data) => {
@@ -28,12 +29,18 @@ export default function CocktailsList() {
     const radioFilter = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        if (filter.length > 1) {
-            filter.map((item) => {
-                if (item.name === name){
-                    item.value = value;
+        if (filter.length >= 1) {
+            let i = 0;
+            while (filter.length > i){
+                if (filter[i].name === name){
+                    filter[i].value = value;
+                    break;
                 }
-            })
+                else {
+                    filter.push({name: name, value: value})
+                }
+                i++;
+            }
         }
         else {
             filter.push({name: name, value: value})
@@ -42,24 +49,21 @@ export default function CocktailsList() {
 
     const Accept = (e) => {
         let i = 0;
-        let alc;
-        let cat;
-        while(i < filter.length){
-            if (filter[i].name == "strAlcoholic") {
-                alc = filter[i]
-                
+        console.log(filter)
+        setDataCoctails(allCocktails.filter((cocktail) => { 
+            if (filter.length === 1){
+                return cocktail[filter[i].name] == filter[i].value;
             }
             else {
-                cat = filter[i]
+                return ((cocktail[filter[i].name] == filter[i].value)&&(cocktail[filter[i + 1].name] == filter[i + 1].value))
             }
-            i++;
-        }
-        setDataCoctails(allCocktails.filter((cocktail) => (cocktail[cat.name] == cat.value)&&(cocktail[alc.name] == alc.value)))
+        }))
         setModalActive(false);
+        console.log(allCocktails)
     }
 
-    const dropFilter = () => {
-        setDataCoctails(allCocktails)
+    function dropFilter() {
+        setDataCoctails(allCocktails);
     }
 
     useEffect(() => {
@@ -81,10 +85,14 @@ export default function CocktailsList() {
     }
 
     const loadingCoctails = () => {
-        fetchCoctailsNext().then((data)=> {
+        if (!flag){
+            fetchCoctailsNext().then((data)=> {
             setAllCocktails([...allCocktails, ...data])
             setDataCoctails([...allCocktails, ...data]);
-        })
+            setFlag(true)
+            })
+        }
+        
     }
 
     const choiceIngredients = (ingredient) => {
@@ -140,7 +148,7 @@ export default function CocktailsList() {
                         <button>Поиск</button>
                     </form>
                     <button onClick={() => setModalActive(true)}>Фильтры</button>
-                    <button onClick={() => (setModalActiveSecond(true), loadingIngredients())}>Поиск по ингредиентам</button>
+                    <button onClick={() => (setModalActiveSecond(true), loadingIngredients(), loadingCoctails())}>Поиск по ингредиентам</button>
                     <Modal active={modalActive} setActive={setModalActive}>
                         <div className="">
                             <div className="filter">
