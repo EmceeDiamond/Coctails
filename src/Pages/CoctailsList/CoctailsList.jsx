@@ -89,21 +89,19 @@ export default function CocktailsList() {
 
     const choiceIngredients = (ingredient) => {
         if (ingredientCheckbox.length === 0){
-            console.log("first")
             setIngredientCheckbox([...ingredientCheckbox, ingredient]);
         }
-        else if (ingredientCheckbox.find((item) => ingredient === item) === undefined){
+        else if (ingredientCheckbox.find((item) =>{ 
+            console.log(ingredient.strIngredient1, item.strIngredient1)
+            if (ingredient.strIngredient1 === item.strIngredient1) {
+                return item
+            }
+            }) === undefined){
             console.log("1")
             setIngredientCheckbox([...ingredientCheckbox, ingredient]);
         }
-        else {
-            console.log(ingredientCheckbox.map((item) => item !== ingredient))
-            setIngredientCheckbox(ingredientCheckbox.map((item) => {
-                if (item !== ingredient){
-                    console.log(item)
-                    return item
-                }
-            }))
+        else if (ingredientCheckbox.find((item) => ingredient.strIngredient1 === item.strIngredient1) !== undefined){
+            setIngredientCheckbox(ingredientCheckbox.filter((item) => item.strIngredient1 !== ingredient.strIngredient1))
         }
         console.log(ingredientCheckbox)
     }
@@ -112,7 +110,7 @@ export default function CocktailsList() {
         console.log(ingredientCheckbox)
         setDataCoctails(allCocktails.filter((item) => {
             let ctr = 1;
-            let prop = `strIngredient${ctr}`
+            let prop = `strIngredient${ctr}`;
             let i = 0;
             let flag = true;
 
@@ -120,7 +118,7 @@ export default function CocktailsList() {
                 while (item[prop] !== null){
                     if (item[prop] !== ingredientCheckbox[i].strIngredient1){
                         ctr++;
-                        prop = `strIngredient${ctr}`
+                        prop = `strIngredient${ctr}`;
                     }
                     else if (item[prop] === ingredientCheckbox[i].strIngredient1){
                         flag = true;
@@ -134,6 +132,8 @@ export default function CocktailsList() {
                 return item
             }
         }))
+        setModalActiveSecond(false)
+        console.log(ingredientCheckbox)
     }
 
     return(
