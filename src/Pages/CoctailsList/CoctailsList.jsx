@@ -92,22 +92,18 @@ export default function CocktailsList() {
             setIngredientCheckbox([...ingredientCheckbox, ingredient]);
         }
         else if (ingredientCheckbox.find((item) =>{ 
-            console.log(ingredient.strIngredient1, item.strIngredient1)
             if (ingredient.strIngredient1 === item.strIngredient1) {
                 return item
             }
             }) === undefined){
-            console.log("1")
             setIngredientCheckbox([...ingredientCheckbox, ingredient]);
         }
         else if (ingredientCheckbox.find((item) => ingredient.strIngredient1 === item.strIngredient1) !== undefined){
             setIngredientCheckbox(ingredientCheckbox.filter((item) => item.strIngredient1 !== ingredient.strIngredient1))
         }
-        console.log(ingredientCheckbox)
     }
 
     const searchByIngredients = () => {
-        console.log(ingredientCheckbox)
         setDataCoctails(allCocktails.filter((item) => {
             let ctr = 1;
             let prop = `strIngredient${ctr}`;
@@ -133,7 +129,6 @@ export default function CocktailsList() {
             }
         }))
         setModalActiveSecond(false)
-        console.log(ingredientCheckbox)
     }
 
     return(
