@@ -19,6 +19,7 @@
 }
 
 .modal__content{
+    max-height: 95%;
     padding: 20px;
     border-radius: 12px;
     background-color: #f6decd;

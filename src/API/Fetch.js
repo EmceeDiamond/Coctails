@@ -20,7 +20,6 @@ const fetchCoctailsNext = async () => {
 			}
 			counter++;
 		}
-		console.log(arr)
 		return arr
 	} catch (error) {
 		throw new Error('Ошибка при загрузке пользователей')

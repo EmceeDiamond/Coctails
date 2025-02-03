@@ -92,7 +92,6 @@ export default function CocktailsList() {
             setFlag(true)
             })
         }
-        
     }
 
     const choiceIngredients = (ingredient) => {
@@ -137,6 +136,7 @@ export default function CocktailsList() {
             }
         }))
         setModalActiveSecond(false)
+        console.log(dataCoctails)
     }
 
     return(
@@ -147,8 +147,11 @@ export default function CocktailsList() {
                         <input type="text" placeholder="Введите название коктейля" onChange={handleInput} id="attribute"/>
                         <button>Поиск</button>
                     </form>
-                    <button onClick={() => setModalActive(true)}>Фильтры</button>
-                    <button onClick={() => (setModalActiveSecond(true), loadingIngredients(), loadingCoctails())}>Поиск по ингредиентам</button>
+                    <div className="">
+                        <button onClick={() => setModalActive(true)}>Фильтры</button>
+                        <button id="search__by__ingred" onClick={() => (setModalActiveSecond(true), loadingIngredients(), loadingCoctails())}>Поиск по ингредиентам</button>
+                    </div>
+                    
                     <Modal active={modalActive} setActive={setModalActive}>
                         <div className="">
                             <div className="filter">
