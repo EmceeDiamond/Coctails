@@ -47,23 +47,25 @@ export default function CocktailsList() {
         }
     }
 
-    const Accept = (e) => {
-        let i = 0;
-        console.log(filter)
-        setDataCoctails(allCocktails.filter((cocktail) => { 
-            if (filter.length === 1){
-                return cocktail[filter[i].name] == filter[i].value;
-            }
-            else {
-                return ((cocktail[filter[i].name] == filter[i].value)&&(cocktail[filter[i + 1].name] == filter[i + 1].value))
-            }
-        }))
-        setModalActive(false);
-        console.log(allCocktails)
+    const Accept = () => {
+        if (filter.length !== 0){
+            let i = 0;
+            setDataCoctails(allCocktails.filter((cocktail) => { 
+                if (filter.length === 1){
+                    return cocktail[filter[i].name] == filter[i].value;
+                }
+                else {
+                    return ((cocktail[filter[i].name] == filter[i].value)&&(cocktail[filter[i + 1].name] == filter[i + 1].value))
+                }
+            }))
+            setModalActive(false);
+        }
+        
     }
 
     function dropFilter() {
-        setDataCoctails(allCocktails);
+        document.querySelectorAll('input[type=radio]').forEach( el => el.checked = false );
+        setFilter([])
     }
 
     useEffect(() => {
@@ -95,6 +97,7 @@ export default function CocktailsList() {
     }
 
     const choiceIngredients = (ingredient) => {
+        console.log(ingredient)
         if (ingredientCheckbox.length === 0){
             setIngredientCheckbox([...ingredientCheckbox, ingredient]);
         }
@@ -111,7 +114,8 @@ export default function CocktailsList() {
     }
 
     const searchByIngredients = () => {
-        setDataCoctails(allCocktails.filter((item) => {
+        if (ingredientCheckbox.length !== 0){
+            setDataCoctails(allCocktails.filter((item) => {
             let ctr = 1;
             let prop = `strIngredient${ctr}`;
             let i = 0;
@@ -134,9 +138,13 @@ export default function CocktailsList() {
             if (flag) {
                 return item
             }
-        }))
-        setModalActiveSecond(false)
-        console.log(dataCoctails)
+            }))
+            setModalActiveSecond(false)
+        } 
+    }
+
+    const dropIngredients = () =>{
+        document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
     }
 
     return(
@@ -144,12 +152,19 @@ export default function CocktailsList() {
             <section className="coctails__list">
                 <div className="search">
                     <form onSubmit={handleSubmit}>
-                        <input type="text" placeholder="Введите название коктейля" onChange={handleInput} id="attribute"/>
-                        <button>Поиск</button>
+                        <input type="text" 
+                        placeholder="Введите название коктейля" 
+                        onChange={handleInput} 
+                        id="attribute"/>
+                        <button className="white__btn">Поиск</button>
                     </form>
                     <div className="">
-                        <button onClick={() => setModalActive(true)}>Фильтры</button>
-                        <button id="search__by__ingred" onClick={() => (setModalActiveSecond(true), loadingIngredients(), loadingCoctails())}>Поиск по ингредиентам</button>
+                        <button onClick={() => (setModalActive(true), loadingCoctails())} 
+                        className="white__btn">Фильтры</button>
+                        <button id="search__by__ingred" 
+                        onClick={() => (setModalActiveSecond(true), loadingIngredients(), loadingCoctails())}
+                        className="white__btn">
+                            Поиск по ингредиентам </button>
                     </div>
                     
                     <Modal active={modalActive} setActive={setModalActive}>
@@ -216,20 +231,32 @@ export default function CocktailsList() {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={Accept}>Применить</button>
-                            <button onClick={dropFilter}>Сбросить</button>
+                            <button 
+                            onClick={Accept} 
+                            className="accept__btn">Применить</button>
+                            <button 
+                            onClick={dropFilter}
+                            className="drop__btn">Сбросить</button>
                         </div>
                     </Modal>
                     <Modal active={modalActiveSecond} setActive={setModalActiveSecond}>
                         <div className="ingred">
                             {ingredient.map((item) => (
-                                <div className="">
-                                    <input type="checkbox" id="alcoholic" name="strAlcoholic" value="Alcoholic" onClick={() => (choiceIngredients(item))}/>
-                                    <label for="alcoholic">{item.strIngredient1}</label>
+                                <div className="checkbox">
+                                    <input type="checkbox" 
+                                    className="custom-checkbox" 
+                                    id={item.strIngredient1} 
+                                    value={item.strIngredient1} 
+                                    onClick={() => (choiceIngredients(item))}/>
+                                    <label for={item.strIngredient1}>{item.strIngredient1}</label>
                                 </div>
                             ))}
-                            <button onClick={() => searchByIngredients()}>Accept</button>
+                            
                         </div>
+                        <button onClick={() => searchByIngredients()} 
+                            className="accept__btn">Применить</button>
+                        <button onClick={() => dropIngredients()} 
+                            className="drop__btn">Сбросить</button>
                     </Modal>
                 </div>
                 <div className="cards">

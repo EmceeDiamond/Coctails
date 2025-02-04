@@ -5,6 +5,7 @@
 .coctail__info {
     overflow: auto;
     max-height: 630px;
+    overflow-x: hidden;
 }
 
 .coctail__info img {
